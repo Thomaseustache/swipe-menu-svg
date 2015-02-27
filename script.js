@@ -1,4 +1,6 @@
-/*Swipe Menu SVG - by  @eustachethomas*/
+/*Swipe Menu SVG - by  @eustachethomas
+https://github.com/Thomaseustache/swipe-menu-svg
+*/
 var wH, wW, startX, mouseX, mouseY, decX, decY;
 $(document).ready(function(){
 
