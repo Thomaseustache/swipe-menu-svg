@@ -1,10 +1,9 @@
-/*Swipe Menu SVG - by  @eustachethomas
-https://github.com/Thomaseustache/swipe-menu-svg
-*/
+/*Swipe Menu SVG - by  @eustachethomas*/
 var wH, wW, startX, mouseX, mouseY, decX, decY;
 $(document).ready(function(){
-
-    path = $('.bg path').attr('d');
+    var s = Snap( '.menu svg' );
+        pathEl = s.select( 'path' );
+    pathOrigin = $('.bg path').attr('d');
     isDragging = false;
 
     wH = $(window).height();
@@ -35,27 +34,33 @@ $(document).ready(function(){
     });
     $(window).mouseup(function(){
         isDragging = false;
+        if(decX<50){
+            newPath = pathOrigin;
+            pathEl.stop().animate( { 'path' : newPath }, 800, mina.elastic );
+            $('.menu').removeClass('open');
+        }
     });
 	
 });
 
 
 function transform(){
-    var s = Snap( '.menu svg' );
-        pathEl = s.select( 'path' );
+    
     if( !$('.menu').hasClass('open') ){
         if(isDragging){
             newPath = 'M 0 0, L 0 100, L 0 100, C '+decX+' '+(decY-20)+' '+decX+' '+(decY+20)+' 0 0, Z';
             $('.bg path').attr('d', newPath);
+            if(decX>50){
+                newPath = 'M 0 0, L 0 100, L 40 100, L 40 0, Z';
+                pathEl.stop().animate( { 'path' : newPath }, 800, mina.elastic );
+                $('.menu').addClass('open');
+            }
+            
         }else{
-            newPath = path;
+            newPath = pathOrigin;
             $('.bg path').attr('d', newPath);
         }
         
-        if(decX>50){
-            newPath = 'M 0 0, L 0 100, L 40 100, L 40 0, Z';
-            pathEl.stop().animate( { 'path' : newPath }, 800, mina.elastic );
-            $('.menu').addClass('open');
-        }
+        
     }
 }
