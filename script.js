@@ -21,7 +21,6 @@ $(document).ready(function(){
             mouseY = event.pageY;
             decX = parseInt( mouseX/ wW *100 );
             decY = parseInt( mouseY/ wH *100 );
-            console.log(decX, decY);
         }else{
             decX = decY = 0; 
         }
@@ -48,7 +47,8 @@ function transform(){
     
     if( !$('.menu').hasClass('open') ){
         if(isDragging){
-            newPath = 'M 0 0, L 0 100, L 0 100, C '+decX+' '+(decY-20)+' '+decX+' '+(decY+20)+' 0 0, Z';
+            // newPath = 'M 0 0, L 0 100, L 0 100, C '+decX+' '+(decY-20)+' '+decX+' '+(decY+20)+' 0 0, Z';
+            newPath = 'M0,0C0,0,0,100,0,100C0,100,0,100,0,100C'+decX+','+(decY-20)+','+decX+','+(decY+20)+',0 0C0,0,0,0,0,0C0,0,0,0,0,0';
             $('.bg path').attr('d', newPath);
             if(decX>50){
                 newPath = 'M 0 0, L 0 100, L 40 100, L 40 0, Z';
